@@ -1,8 +1,14 @@
 {
   "openapi": "3.0.1",
   "info": {
-    "title": "GenotipHms",
-    "version": "1.0"
+    "title": "GenHMS API",
+    "description": "",
+    "contact": {
+      "name": "GenYazilim",
+      "email": "info@genyazilim.com"
+    },
+    "version": "v1",
+    "x-change-v0.0.1": "Initial Pre-Alpha"
   },
   "paths": {
     "/api/Auth/register": {

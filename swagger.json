@@ -337,6 +337,7 @@
           {
             "name": "meta",
             "in": "header",
+            "description": "This parameter is used to additional metada Example values;\r\n            Content-Writer,\r\n            Project-Name,\r\n            OTHER",
             "schema": {
               "type": "string"
             }

@@ -41,17 +41,7 @@
           "200": {
             "description": "Registered user.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SuccessResponse"
                 }
@@ -61,17 +51,7 @@
           "409": {
             "description": "User with supplied user name already exists.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -111,17 +91,7 @@
           "200": {
             "description": "Logged in.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SuccessObjectResponse`1"
                 }
@@ -131,17 +101,7 @@
           "401": {
             "description": "Passwords did not match.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -151,17 +111,7 @@
           "404": {
             "description": "User with supplied user name was not be found.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -702,17 +652,7 @@
           "200": {
             "description": "Mail sent.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SuccessResponse"
                 }
@@ -1002,17 +942,7 @@
           "200": {
             "description": "Returned the IdentityUser with the supplied user name..",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/IdentityUserSuccessObjectResponse"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IdentityUserSuccessObjectResponse"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/IdentityUserSuccessObjectResponse"
                 }
@@ -1025,17 +955,7 @@
           "404": {
             "description": "The IdentityUser with the supplied user name was not found",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }
@@ -1072,17 +992,7 @@
           "200": {
             "description": "Deleted the IdentityUser with the supplied user name.",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SuccessResponse"
                 }
@@ -1095,17 +1005,7 @@
           "404": {
             "description": "The IdentityUser with the supplied user name was not found",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
                 }

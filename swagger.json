@@ -7,7 +7,7 @@
       "name": "GenYazilim",
       "email": "info@genyazilim.com"
     },
-    "version": "v0.0.1",
+    "version": "v1",
     "x-change-v0.0.1": "Initial Pre-Alpha"
   },
   "paths": {
@@ -353,6 +353,16 @@
           "description": "The file to upload.",
           "content": {
             "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadFileModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadFileModel"
+              }
+            },
+            "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/UploadFileModel"
               }

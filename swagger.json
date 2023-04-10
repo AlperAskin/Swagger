@@ -24,16 +24,6 @@
               "schema": {
                 "$ref": "#/components/schemas/AppUser"
               }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AppUser"
-              }
-            },
-            "application/*+json": {
-              "schema": {
-                "$ref": "#/components/schemas/AppUser"
-              }
             }
           }
         },
@@ -71,16 +61,6 @@
           "description": "Encapsulation of Username and Password",
           "content": {
             "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginModel"
-              }
-            },
-            "text/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginModel"
-              }
-            },
-            "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/LoginModel"
               }
@@ -623,22 +603,6 @@
           "description": "JSON information about the Data that will be used to fill message template",
           "content": {
             "application/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": {
-                  "$ref": "#/components/schemas/JsonNode"
-                }
-              }
-            },
-            "text/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": {
-                  "$ref": "#/components/schemas/JsonNode"
-                }
-              }
-            },
-            "application/*+json": {
               "schema": {
                 "type": "object",
                 "additionalProperties": {

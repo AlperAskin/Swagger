@@ -1237,7 +1237,7 @@
         "Document Version Number": "v0.0.1",
         "description": "Initial Pre-Alpha",
         "name": "ChangeLog",
-        "in": "header"
+        "in": "headerline"
       }
     }
   }

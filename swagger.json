@@ -1224,14 +1224,6 @@
         "description": "Represents a model for uploading a file to a storage system."
       }
     },
-    "securitySchemes": {
-      "oauth2": {
-        "type": "apiKey",
-        "description": "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
-        "name": "Authorization",
-        "in": "header"
-      }
-    },
     "changeLog": {
       "11.04.2023": {
         "Document Version Number": "v0.0.1",
@@ -1239,6 +1231,14 @@
         "name": "ChangeLog",
         "in": "header"
       }
+    }
+  },
+  "securitySchemes": {
+    "oauth2": {
+      "type": "apiKey",
+      "description": "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
+      "name": "Authorization",
+      "in": "header"
     }
   }
 }

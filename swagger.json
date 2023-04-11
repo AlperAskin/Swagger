@@ -2,24 +2,13 @@
   "openapi": "3.0.1",
   "info": {
     "title": "GenHMS API",
-    "description": "\n\n| Published Date | Document Version Number | Description of Revision |\n| --------------|------------------------|---------------------------|\n| 31.08.2021    | v1.0.21                | - Tone view statistics method added. |\n| 11.06",
+    "description": "",
     "contact": {
       "name": "GenYazilim",
       "email": "info@genyazilim.com"
     },
     "version": "v0.0.1",
-    "x-table": [
-      {
-        "Published Date": "11.4.2023",
-        "Document Version Number": "v0.0.1",
-        "Description of Revision": "- Initial Pre-alpha"
-      },
-      {
-        "Published Date": "12.4.2023",
-        "Document Version Number": "v0.0.2",
-        "Description of Revision": "-Test Doc"
-      }
-    ]
+    "x-change-v0.0.1": "Initial Pre-Alpha"
   },
   "paths": {
     "/api/Auth/register": {
@@ -674,17 +663,7 @@
           "200": {
             "description": "Returned the list of Patients from HL7/FHIR",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SuccessObjectResponse`1"
                 }
@@ -713,17 +692,7 @@
           "200": {
             "description": "Added Patient to HL7/FHIR",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SuccessObjectResponse`1"
                 }
@@ -765,17 +734,7 @@
           "200": {
             "description": "Returned the Patient from HL7/FHIR",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SuccessObjectResponse`1"
                 }
@@ -815,17 +774,7 @@
           "200": {
             "description": "Deleted Patient from HL7/FHIR",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SuccessObjectResponse`1"
                 }
@@ -865,17 +814,7 @@
           "200": {
             "description": "Updated the Patient in HL7/FHIR",
             "content": {
-              "text/plain": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              },
               "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              },
-              "text/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SuccessObjectResponse`1"
                 }
@@ -1290,6 +1229,14 @@
         "type": "apiKey",
         "description": "Standard Authorization header using the Bearer scheme (\"bearer {token}\")",
         "name": "Authorization",
+        "in": "header"
+      }
+    },
+    "changeLog": {
+      "11.04.2023": {
+        "Document Version Number": "v0.0.1",
+        "description": "Initial Pre-Alpha",
+        "name": "ChangeLog",
         "in": "header"
       }
     }

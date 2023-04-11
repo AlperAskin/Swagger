@@ -2,7 +2,7 @@
   "openapi": "3.0.0",
   "info": {
     "title": "GenHMS API",
-    "description": "",
+    "description": "\n\n| Published Date | Document Version Number | Description of Revision |\n| --------------|------------------------|---------------------------|\n| 31.08.2021    | v1.0.21                | - Tone view statistics method added. |\n| 11.06",
     "contact": {
       "name": "GenYazilim",
       "email": "info@genyazilim.com"

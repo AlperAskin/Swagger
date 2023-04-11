@@ -7,8 +7,14 @@
       "name": "GenYazilim",
       "email": "info@genyazilim.com"
     },
-    "version": "v1",
-    "x-change-v0.0.1": "Initial Pre-Alpha"
+    "version": "v0.0.1",
+    "x-table": [
+      {
+        "Published Date": "11.4.2023",
+        "Document Version Number": "v0.0.1",
+        "Description of Revision": "Initial Pre-alpha"
+      }
+    ]
   },
   "paths": {
     "/api/Auth/register": {

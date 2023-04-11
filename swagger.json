@@ -1231,14 +1231,6 @@
         "name": "Authorization",
         "in": "header"
       }
-    },
-    "changeLog": {
-      "11.04.2023": {
-        "Document Version Number": "v0.0.1",
-        "description": "Initial Pre-Alpha",
-        "name": "ChangeLog",
-        "in": "headerline"
-      }
     }
   }
 }

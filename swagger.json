@@ -1,5 +1,5 @@
 {
-  "openapi": "3.0.1",
+  "openapi": "3.0.0",
   "info": {
     "title": "GenHMS API",
     "description": "",
@@ -13,6 +13,11 @@
         "Published Date": "11.4.2023",
         "Document Version Number": "v0.0.1",
         "Description of Revision": "- Initial Pre-alpha"
+      },
+      {
+        "Published Date": "12.4.2023",
+        "Document Version Number": "v0.0.2",
+        "Description of Revision": "-Test Doc"
       }
     ]
   },

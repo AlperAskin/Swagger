@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "GenHMS API",
-    "description": "Document Change Log:\n\n<table><tr><td>Published Date</td><td>Document Version Number</td><td>Description Of Revision</td></tr><tr><td>11.04.2023</td><td>v0.0.1</td><td>Initial Pre-Alpha</td></tr></table>",
+    "description": "This document provides the RBT Backend REST API interface.\n\nDocument Change Log:\n\n<table><tr><td>Published Date</td><td>Document Version Number</td><td>Description Of Revision</td></tr><tr><td>11.04.2023</td><td>v0.0.1</td><td>Initial Pre-Alpha</td></tr></table>",
     "contact": {
       "name": "GenYazilim",
       "email": "info@genyazilim.com"

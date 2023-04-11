@@ -2,12 +2,12 @@
   "openapi": "3.0.1",
   "info": {
     "title": "GenHMS API",
-    "description": "This document provides the GenHMS Backend REST API interface.\n\nTest Server For GenHMS Backend REST API.\n\nhttps://hms.genyazilim.com/api\n\nDocument Change Log:\n\n<table><tr><td>Published Date</td><td>Document Version Number</td><td>Description Of Revision</td></tr><tr><td>11.04.2023</td><td>v0.0.1</td><td>Initial Pre-Alpha</td></tr></table>",
+    "description": "This document provides the RBT Backend REST API interface. Client of the interface will be RBT App/RBT Portal/DSP (IVR, USSD, SMS). Server of interface will be RBT Backend.\n\nTest Server for RBT Backend REST API FOR SC28.\n\nhttp://rbtapitest.mobily.com.sa:8080\n\nTest Server for RBT Backend REST API FOR SC28.\n\nhttp://rbtapitest.mobily.com.sa/API\n\nDocument Change Log\n\n|   Published Date  |   Document Version Number |   Description of Revision       |\n|-------------------|---------------------------|---------------------------------|\n| 31.08.2021        | v1.0.21   | - Tone view statistics method added.<br/>|\n| 11.06.2021        | v1.0.20   | - Autolocation methods added.<br/>|\n| 10.04.2021        | v1.0.19   | - Price and NumberOfTones sort types added.<br/>|\n| 13.03.2021        | v1.0.18   | - Signature assignment methods implemented.<br/>|\n| 11.03.2021        | v1.0.17   | - RBT tone assignment methods implemented.<br/>|\n| 10.03.2021        | v1.0.16   | - Mandatory field \"X-Language\" has been removed from  recommendation methods.<br/> - activeDefaultContentName field added.<br/>|\n| 03.03.2021        | v1.0.15   | - Recommendation engine integration is done.<br/> - The contentId, contentType, serviceId, serviceName parameters were added to the /rbt/confirmations/subscriptions/state method for this operation.<br/>|\n| 10.02.2021        | v1.0.14   | - The period parameter has been added to trendig methods.<br/>|\n| 09.02.2021        | v1.0.13   | - The responses of the required methods were backwards compatible with version 1.0.8 of the document.<br/>- The price and activeDefaultContent fields have been added to the responses of the required methods.<br/>|\n| 06.01.2021        | v1.0.12   | - The key parameter, which is the required field, has been removed from being mandatory for albums, artists and tones.<br/>|\n| 05.01.2021        | v1.0.11   | - Required methods for SMS channel are added.<br/> - Document Change Log added.<br/>|\n",
+    "version": "v1.0.20",
     "contact": {
       "name": "GenYazilim",
       "email": "info@genyazilim.com"
     },
-    "version": "v0.0.1",
     "x-change-v0.0.1": "Initial Pre-Alpha"
   },
   "paths": {
@@ -149,22 +149,22 @@
           }
         ],
         "responses": {
-          "409": {
-            "description": "Conflict",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
           "201": {
             "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "409": {
+            "description": "Conflict",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
                 }
               }
             }
@@ -866,6 +866,9 @@
           "401": {
             "description": "Jwt token authorization failed."
           },
+          "403": {
+            "description": "Forbidden"
+          },
           "404": {
             "description": "The IdentityUser with the supplied user name was not found",
             "content": {
@@ -875,9 +878,6 @@
                 }
               }
             }
-          },
-          "403": {
-            "description": "Forbidden"
           }
         },
         "security": [
@@ -916,6 +916,9 @@
           "401": {
             "description": "Jwt token authorization failed."
           },
+          "403": {
+            "description": "Forbidden"
+          },
           "404": {
             "description": "The IdentityUser with the supplied user name was not found",
             "content": {
@@ -925,9 +928,6 @@
                 }
               }
             }
-          },
-          "403": {
-            "description": "Forbidden"
           }
         },
         "security": [

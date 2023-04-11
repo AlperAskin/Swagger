@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "GenHMS API",
-    "description": "",
+    "description": "Sample table:\n\n<table><tr><td>One</td><td>Two</td><td>Three</td></tr><tr><td>a</td><td>b</td><td>c</td></tr></table>",
     "contact": {
       "name": "GenYazilim",
       "email": "info@genyazilim.com"

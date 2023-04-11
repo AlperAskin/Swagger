@@ -1,0 +1,812 @@
+openapi: 3.0.1
+info:
+  title: GenHMS API
+  description: 
+    This document provides the GenHMS Backend REST API interface.
+    
+    Test Server for GenHMS Backend REST API.
+    
+    http://url
+    
+    Test Server for GenHMS Backend REST API.
+    
+    http://url
+    
+    Document Change Log
+
+    |   Published Date  |   Document Version Number |   Description of Revision       |
+    |-------------------|---------------------------|---------------------------------|
+    | 31.08.2021        | v0.0.1   | - InitialPreAlpha.<br/>|
+  contact:
+    name: GenYazilim
+    email: info@genyazilim.com
+  version: v0.0.1
+  x-change-v0.0.1: Initial Pre-Alpha
+paths:
+  /api/Auth/register:
+    post:
+      tags:
+        - Auth
+      summary: Registers an IdentityUser. If already registered, returns Conflict (409)
+      requestBody:
+        description: User model that is visible to caller instead of giving access to entirety of IdentityUser
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AppUser'
+      responses:
+        '200':
+          description: Registered user.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '409':
+          description: User with supplied user name already exists.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/Auth/login:
+    post:
+      tags:
+        - Auth
+      summary: Searches for a registered IdentityUser and checks and compares its credentials with parameter LoginModel values
+      requestBody:
+        description: Encapsulation of Username and Password
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginModel'
+      responses:
+        '200':
+          description: Logged in.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessObjectResponse`1'
+        '401':
+          description: Passwords did not match.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: User with supplied user name was not be found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/File/GetBuckets:
+    get:
+      tags:
+        - File
+      summary: Retrieves a list of all available S3 buckets.
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/File/CreateBucket/{bucketName}:
+    put:
+      tags:
+        - File
+      summary: Creates a new S3 bucket with the specified name.
+      parameters:
+        - name: bucketName
+          in: path
+          description: The name of the new bucket to create.
+          required: true
+          schema:
+            type: string
+      responses:
+        '201':
+          description: Created
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '409':
+          description: Conflict
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/File/DeleteBucket/{bucketName}:
+    delete:
+      tags:
+        - File
+      summary: Deletes the specified S3 bucket.
+      parameters:
+        - name: bucketName
+          in: path
+          description: The name of the bucket to delete.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/File/SharedLink/{bucketName}/{key}:
+    get:
+      tags:
+        - File
+      summary: Gets a shared link for the specified object in the specified S3 bucket.
+      parameters:
+        - name: bucketName
+          in: path
+          description: The name of the bucket containing the object.
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          description: The Key of the object to generate a shared link for.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/File/PutNewFile:
+    put:
+      tags:
+        - File
+      summary: Uploads a new file to the specified S3 bucket.
+      parameters:
+        - name: meta
+          in: header
+          description: "This parameter is used to additional metada Example values;\r\n            Content-Writer,\r\n            Project-Name,\r\n            OTHER"
+          schema:
+            type: string
+      requestBody:
+        description: The file to upload.
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/UploadFileModel'
+          text/json:
+            schema:
+              $ref: '#/components/schemas/UploadFileModel'
+          application/*+json:
+            schema:
+              $ref: '#/components/schemas/UploadFileModel'
+        required: true
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/File/GetFile/{bucketName}/{key}:
+    get:
+      tags:
+        - File
+      summary: Gets a file from the specified S3 bucket.
+      parameters:
+        - name: bucketName
+          in: path
+          description: The name of the bucket.
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          description: The Key of the file to get.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/File/DeleteFile/{bucketName}/{key}:
+    delete:
+      tags:
+        - File
+      summary: Deletes a file with the specified Key from the specified bucket.
+      parameters:
+        - name: bucketName
+          in: path
+          description: The name of the bucket containing the file.
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          description: The Key identifying the file within the bucket.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Success
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/File/GetObjectList/{bucketName}/{prefix}:
+    get:
+      tags:
+        - File
+      summary: Retrieves a list of objects in the specified Amazon S3 bucket with the specified prefix.
+      parameters:
+        - name: bucketName
+          in: path
+          description: The name of the Amazon S3 bucket to retrieve objects from.
+          required: true
+          schema:
+            type: string
+        - name: prefix
+          in: path
+          description: The prefix used to filter the objects to retrieve.
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returns the list of objects in the specified bucket with the specified prefix.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: If the specified bucket does not exist, returns an error message indicating that the bucket was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/File/PutAsFile/{bucketName}/{key}:
+    put:
+      tags:
+        - File
+      summary: Uploads a file to the specified Amazon S3-compatible bucket using HTTP PUT method.
+      parameters:
+        - name: bucketName
+          in: path
+          description: The name of the Amazon S3-compatible bucket to upload the file to.
+          required: true
+          schema:
+            type: string
+        - name: key
+          in: path
+          description: The key used to identify the file in the bucket.
+          required: true
+          schema:
+            type: string
+        - name: meta
+          in: header
+          description: "This parameter is used to additional metada Example values;\r\n            Content-Writer,\r\n            Project-Name,\r\n            OTHER"
+          schema:
+            type: string
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              required:
+                - file
+              type: object
+              properties:
+                file:
+                  type: string
+                  format: binary
+            encoding:
+              file:
+                style: form
+      responses:
+        '200':
+          description: Returns a success response if the file is successfully uploaded.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '404':
+          description: If the specified bucket does not exist, returns an error message indicating that the bucket was not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+  /api/Message/{systemName}/{resourceName}/{id}:
+    post:
+      tags:
+        - Message
+      summary: Sends an email.
+      parameters:
+        - name: operation
+          in: header
+          description: Operation such as add/update/delete
+          schema:
+            type: string
+        - name: systemName
+          in: path
+          description: Name of the service (etc. mail, sms, notification)
+          required: true
+          schema:
+            type: string
+        - name: resourceName
+          in: path
+          description: Name of the resource
+          required: true
+          schema:
+            type: string
+        - name: id
+          in: path
+          description: ID of the resource
+          required: true
+          schema:
+            type: integer
+            format: int64
+      requestBody:
+        description: JSON information about the Data that will be used to fill message template
+        content:
+          application/json:
+            schema:
+              type: object
+              additionalProperties:
+                $ref: '#/components/schemas/JsonNode'
+      responses:
+        '200':
+          description: Mail sent.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '403':
+          description: Forbidden.
+  /api/Message/Throw404:
+    post:
+      tags:
+        - Message
+      responses:
+        '200':
+          description: Success
+  /api/Message/Throw502:
+    post:
+      tags:
+        - Message
+      responses:
+        '200':
+          description: Success
+  /api/Patient:
+    get:
+      tags:
+        - Patient
+      summary: Returns a list of Patient derived from HL7/FHIR
+      responses:
+        '200':
+          description: Returned the list of Patients from HL7/FHIR
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessObjectResponse`1'
+        '401':
+          description: Jwt token authorization failed.
+        '403':
+          description: Forbidden
+      security:
+        - oauth2: []
+    post:
+      tags:
+        - Patient
+      summary: Adds a Patient to HL7/FHIR
+      responses:
+        '200':
+          description: Added Patient to HL7/FHIR
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessObjectResponse`1'
+        '401':
+          description: Jwt token authorization failed.
+        '403':
+          description: Forbidden
+      security:
+        - oauth2: []
+  /api/Patient/{id}:
+    get:
+      tags:
+        - Patient
+      summary: Returns a Patient derived from HL7/FHIR
+      parameters:
+        - name: id
+          in: path
+          description: Id of a Patient (HL7/FHIR)
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returned the Patient from HL7/FHIR
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessObjectResponse`1'
+        '401':
+          description: Jwt token authorization failed.
+        '403':
+          description: Forbidden
+      security:
+        - oauth2: []
+    delete:
+      tags:
+        - Patient
+      summary: Deletes the Patient with "id" from HL7/FHIR
+      parameters:
+        - name: id
+          in: path
+          description: Id of a Patient (HL7/FHIR)
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted Patient from HL7/FHIR
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessObjectResponse`1'
+        '401':
+          description: Jwt token authorization failed.
+        '403':
+          description: Forbidden
+      security:
+        - oauth2: []
+    put:
+      tags:
+        - Patient
+      summary: Updates the Patient with "id" at HL7/FHIR
+      parameters:
+        - name: id
+          in: path
+          description: Id of a Patient (HL7/FHIR)
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Updated the Patient in HL7/FHIR
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessObjectResponse`1'
+        '401':
+          description: Jwt token authorization failed.
+        '403':
+          description: Forbidden
+      security:
+        - oauth2: []
+  /api/User/{username}:
+    get:
+      tags:
+        - User
+      summary: Searches and returns an IdentityUser by its "username". If not found, returns NotFound
+      parameters:
+        - name: username
+          in: path
+          description: User name of the IdentityUser
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Returned the IdentityUser with the supplied user name..
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/IdentityUserSuccessObjectResponse'
+        '401':
+          description: Jwt token authorization failed.
+        '403':
+          description: Forbidden
+        '404':
+          description: The IdentityUser with the supplied user name was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - oauth2: []
+    delete:
+      tags:
+        - User
+      summary: Deletes an IdentityUser. If not found, returns NotFound
+      parameters:
+        - name: username
+          in: path
+          description: User name of the IdentityUser
+          required: true
+          schema:
+            type: string
+      responses:
+        '200':
+          description: Deleted the IdentityUser with the supplied user name.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/SuccessResponse'
+        '401':
+          description: Jwt token authorization failed.
+        '403':
+          description: Forbidden
+        '404':
+          description: The IdentityUser with the supplied user name was not found
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+        - oauth2: []
+components:
+  schemas:
+    AppUser:
+      type: object
+      properties:
+        userName:
+          type: string
+          description: UserName property holds the username of the user.
+          nullable: true
+        password:
+          type: string
+          description: Password property holds the password of the user.
+          nullable: true
+        email:
+          type: string
+          description: Email property holds the email of the user.
+          nullable: true
+      additionalProperties: false
+      description: "AppUser class contains the properties of a user such as username, password, and email.\r\nIt also includes a method 'From' that converts an 'IdentityUser' object to an 'AppUser' object."
+    ErrorResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: The status property of the response.
+          format: int32
+          readOnly: true
+        title:
+          type: string
+          description: The title property of the response.
+          nullable: true
+          readOnly: true
+        responseCode:
+          type: integer
+          description: The numeric code property of the response.
+          format: int32
+          readOnly: true
+        type:
+          type: string
+          description: The property that holds the type of the error.
+          nullable: true
+        details:
+          type: string
+          description: The property that holds the details about the error.
+          nullable: true
+        traceId:
+          type: string
+          description: The property that holds the trace id of the error.
+          format: uuid
+        instance:
+          type: string
+          description: The property that holds the instance of the error.
+          nullable: true
+      additionalProperties: false
+      description: "This class represents an error response model, it inherits from the BaseResponseModel class and it's used to create\r\nan error response with a status code, an instance, a title, and details about the error."
+    IdentityUser:
+      type: object
+      properties:
+        id:
+          type: string
+          nullable: true
+        userName:
+          type: string
+          nullable: true
+        normalizedUserName:
+          type: string
+          nullable: true
+        email:
+          type: string
+          nullable: true
+        normalizedEmail:
+          type: string
+          nullable: true
+        emailConfirmed:
+          type: boolean
+        passwordHash:
+          type: string
+          nullable: true
+        securityStamp:
+          type: string
+          nullable: true
+        concurrencyStamp:
+          type: string
+          nullable: true
+        phoneNumber:
+          type: string
+          nullable: true
+        phoneNumberConfirmed:
+          type: boolean
+        twoFactorEnabled:
+          type: boolean
+        lockoutEnd:
+          type: string
+          format: date-time
+          nullable: true
+        lockoutEnabled:
+          type: boolean
+        accessFailedCount:
+          type: integer
+          format: int32
+      additionalProperties: false
+    IdentityUserSuccessObjectResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: The status property of the response.
+          format: int32
+          readOnly: true
+        title:
+          type: string
+          description: The title property of the response.
+          nullable: true
+          readOnly: true
+        responseCode:
+          type: integer
+          description: The numeric code property of the response.
+          format: int32
+          readOnly: true
+        data:
+          $ref: '#/components/schemas/IdentityUser'
+      additionalProperties: false
+      description: "This class represents a success response model with an object, it inherits from the SuccessResponse class and it's\r\nused to create a success response with an object as a result."
+    JsonNode:
+      type: object
+      properties:
+        options:
+          $ref: '#/components/schemas/JsonNodeOptions'
+        parent:
+          $ref: '#/components/schemas/JsonNode'
+        root:
+          $ref: '#/components/schemas/JsonNode'
+      additionalProperties: false
+    JsonNodeOptions:
+      type: object
+      properties:
+        propertyNameCaseInsensitive:
+          type: boolean
+      additionalProperties: false
+    LoginModel:
+      type: object
+      properties:
+        username:
+          type: string
+          description: The user's username used for login.
+          nullable: true
+        password:
+          type: string
+          description: The user's password used for login.
+          nullable: true
+      additionalProperties: false
+      description: This class represents the model for user login credentials.
+    SuccessObjectResponse`1:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: The status property of the response.
+          format: int32
+          readOnly: true
+        title:
+          type: string
+          description: The title property of the response.
+          nullable: true
+          readOnly: true
+        responseCode:
+          type: integer
+          description: The numeric code property of the response.
+          format: int32
+          readOnly: true
+        data:
+          $ref: '#/components/schemas/T'
+      additionalProperties: false
+      description: "This class represents a success response model with an object, it inherits from the SuccessResponse class and it's\r\nused to create a success response with an object as a result."
+    SuccessResponse:
+      type: object
+      properties:
+        status:
+          type: integer
+          description: The status property of the response.
+          format: int32
+          readOnly: true
+        title:
+          type: string
+          description: The title property of the response.
+          nullable: true
+          readOnly: true
+        responseCode:
+          type: integer
+          description: The numeric code property of the response.
+          format: int32
+          readOnly: true
+      additionalProperties: false
+      description: "This class represents a success response model, it inherits from the BaseResponseModel and it's used to create a\r\nsuccess response."
+    T:
+      type: object
+      additionalProperties: false
+    UploadFileModel:
+      type: object
+      properties:
+        bucketName:
+          type: string
+          description: Gets or sets the name of the storage bucket.
+          nullable: true
+        key:
+          type: string
+          description: Gets or sets the Key or path of the file in the storage system.
+          nullable: true
+        data:
+          type: string
+          description: Gets or sets the base64-encoded string representation of the file's binary Data.
+          nullable: true
+        contentType:
+          type: string
+          description: Gets or sets the content type of the file.
+          nullable: true
+      additionalProperties: false
+      description: Represents a model for uploading a file to a storage system.
+  securitySchemes:
+    oauth2:
+      type: apiKey
+      description: Standard Authorization header using the Bearer scheme ("bearer {token}")
+      name: Authorization
+      in: header

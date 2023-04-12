@@ -2,7 +2,7 @@
   "openapi": "3.0.1",
   "info": {
     "title": "GenHMS API",
-    "description": "This document provides the GenHMS Backend REST API interface.\n\nTest Server for GenHMS Backend REST API FOR SC28.\n\nhttps://hms.genyazilim.com/api\n\nDocument Change Log\n\n|   Published Date  |   Document Version Number |   Description of Revision       |\n|-------------------|---------------------------|---------------------------------|\n| 12.4.2023       | v1.0.0   | - Initial Pre-Alpha.<br/>|\n",
+    "description": "This document provides the GenHMS Backend REST API interface.\n\nTest Server for GenHMS Backend REST API.\n\nhttps://hms.genyazilim.com/api\n\nDocument Change Log\n\n|   Published Date  |   Document Version Number |   Description of Revision       |\n|-------------------|---------------------------|---------------------------------|\n| 12.4.2023       | v1.0.0   | - Initial Pre-Alpha.<br/>|\n",
     "contact": {
       "name": "GenYazilim",
       "email": "info@genyazilim.com"

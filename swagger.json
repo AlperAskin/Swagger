@@ -2,111 +2,20 @@
   "openapi": "3.0.1",
   "info": {
     "title": "GenHMS API",
-    "description": "This document provides the RBT Backend REST API interface. Client of the interface will be RBT App/RBT Portal/DSP (IVR, USSD, SMS). Server of interface will be RBT Backend.\n\nTest Server for RBT Backend REST API FOR SC28.\n\nhttp://rbtapitest.mobily.com.sa:8080\n\nTest Server for RBT Backend REST API FOR SC28.\n\nhttp://rbtapitest.mobily.com.sa/API\n\nDocument Change Log\n\n|   Published Date  |   Document Version Number |   Description of Revision       |\n|-------------------|---------------------------|---------------------------------|\n| 31.08.2021        | v1.0.21   | - Tone view statistics method added.<br/>|\n| 11.06.2021        | v1.0.20   | - Autolocation methods added.<br/>|\n| 10.04.2021        | v1.0.19   | - Price and NumberOfTones sort types added.<br/>|\n| 13.03.2021        | v1.0.18   | - Signature assignment methods implemented.<br/>|\n| 11.03.2021        | v1.0.17   | - RBT tone assignment methods implemented.<br/>|\n| 10.03.2021        | v1.0.16   | - Mandatory field \"X-Language\" has been removed from  recommendation methods.<br/> - activeDefaultContentName field added.<br/>|\n| 03.03.2021        | v1.0.15   | - Recommendation engine integration is done.<br/> - The contentId, contentType, serviceId, serviceName parameters were added to the /rbt/confirmations/subscriptions/state method for this operation.<br/>|\n| 10.02.2021        | v1.0.14   | - The period parameter has been added to trendig methods.<br/>|\n| 09.02.2021        | v1.0.13   | - The responses of the required methods were backwards compatible with version 1.0.8 of the document.<br/>- The price and activeDefaultContent fields have been added to the responses of the required methods.<br/>|\n| 06.01.2021        | v1.0.12   | - The key parameter, which is the required field, has been removed from being mandatory for albums, artists and tones.<br/>|\n| 05.01.2021        | v1.0.11   | - Required methods for SMS channel are added.<br/> - Document Change Log added.<br/>|\n",
-    "version": "v1.0.20",
+    "description": "This document provides the GenHMS Backend REST API interface.\n\nTest Server for GenHMS Backend REST API FOR SC28.\n\nhttps://hms.genyazilim.com/api\n\nDocument Change Log\n\n|   Published Date  |   Document Version Number |   Description of Revision       |\n|-------------------|---------------------------|---------------------------------|\n| 12.4.2023       | v1.0.0   | - Initial Pre-Alpha.<br/>|\n",
     "contact": {
       "name": "GenYazilim",
       "email": "info@genyazilim.com"
-    },
-    "x-change-v0.0.1": "Initial Pre-Alpha"
+    }
   },
   "paths": {
-    "/api/Auth/register": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "summary": "Registers an IdentityUser. If already registered, returns Conflict (409)",
-        "requestBody": {
-          "description": "User model that is visible to caller instead of giving access to entirety of IdentityUser",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/AppUser"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Registered user.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
-                }
-              }
-            }
-          },
-          "409": {
-            "description": "User with supplied user name already exists.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/Auth/login": {
-      "post": {
-        "tags": [
-          "Auth"
-        ],
-        "summary": "Searches for a registered IdentityUser and checks and compares its credentials with parameter LoginModel values",
-        "requestBody": {
-          "description": "Encapsulation of Username and Password",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/LoginModel"
-              }
-            }
-          }
-        },
-        "responses": {
-          "200": {
-            "description": "Logged in.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Passwords did not match.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "User with supplied user name was not be found.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
     "/api/File/GetBuckets": {
       "get": {
         "tags": [
           "File"
         ],
         "summary": "Retrieves a list of all available S3 buckets.",
+        "description": "This endpoint retrieves a list of all available S3 buckets.",
         "responses": {
           "200": {
             "description": "Success",
@@ -137,6 +46,7 @@
           "File"
         ],
         "summary": "Creates a new S3 bucket with the specified name.",
+        "description": "This endpoint creates a new S3 bucket with the specified name.",
         "parameters": [
           {
             "name": "bucketName",
@@ -149,22 +59,22 @@
           }
         ],
         "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
-                }
-              }
-            }
-          },
           "409": {
             "description": "Conflict",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          },
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
                 }
               }
             }
@@ -178,6 +88,7 @@
           "File"
         ],
         "summary": "Deletes the specified S3 bucket.",
+        "description": "This endpoint deletes the specified S3 bucket.",
         "parameters": [
           {
             "name": "bucketName",
@@ -219,6 +130,7 @@
           "File"
         ],
         "summary": "Gets a shared link for the specified object in the specified S3 bucket.",
+        "description": "The endpoint is used to generate a shared link for a specified object in an S3 bucket.",
         "parameters": [
           {
             "name": "bucketName",
@@ -269,6 +181,7 @@
           "File"
         ],
         "summary": "Uploads a new file to the specified S3 bucket.",
+        "description": "This endpoint allows for the upload of a new file to the specified S3 bucket. \r\nThe file to upload is provided in the request body as an instance of the UploadFileModel class. \r\nAdditionally, metadata can be provided as a header parameter with key \"meta\".",
         "parameters": [
           {
             "name": "meta",
@@ -330,6 +243,7 @@
           "File"
         ],
         "summary": "Gets a file from the specified S3 bucket.",
+        "description": "This endpoint allows you to retrieve a file from a specific S3 bucket.",
         "parameters": [
           {
             "name": "bucketName",
@@ -380,6 +294,7 @@
           "File"
         ],
         "summary": "Deletes a file with the specified Key from the specified bucket.",
+        "description": "This enpoint deletes a file with the specified key from the specified Amazon S3 bucket.",
         "parameters": [
           {
             "name": "bucketName",
@@ -430,6 +345,7 @@
           "File"
         ],
         "summary": "Retrieves a list of objects in the specified Amazon S3 bucket with the specified prefix.",
+        "description": "This endpoint retrieves a list of objects from an Amazon S3 bucket that match the specified prefix. The prefix parameter is used to filter the objects to retrieve.",
         "parameters": [
           {
             "name": "bucketName",
@@ -480,6 +396,7 @@
           "File"
         ],
         "summary": "Uploads a file to the specified Amazon S3-compatible bucket using HTTP PUT method.",
+        "description": "This endpoint allows clients to upload a file to the specified Amazon S3-compatible bucket using HTTP PUT method. \r\nThe uploaded file is identified by the specified bucket name and key, and the metadata can be specified using the meta parameter.",
         "parameters": [
           {
             "name": "bucketName",
@@ -652,316 +569,10 @@
           }
         }
       }
-    },
-    "/api/Patient": {
-      "get": {
-        "tags": [
-          "Patient"
-        ],
-        "summary": "Returns a list of Patient derived from HL7/FHIR",
-        "responses": {
-          "200": {
-            "description": "Returned the list of Patients from HL7/FHIR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Jwt token authorization failed."
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        },
-        "security": [
-          {
-            "oauth2": []
-          }
-        ]
-      },
-      "post": {
-        "tags": [
-          "Patient"
-        ],
-        "summary": "Adds a Patient to HL7/FHIR",
-        "responses": {
-          "200": {
-            "description": "Added Patient to HL7/FHIR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Jwt token authorization failed."
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        },
-        "security": [
-          {
-            "oauth2": []
-          }
-        ]
-      }
-    },
-    "/api/Patient/{id}": {
-      "get": {
-        "tags": [
-          "Patient"
-        ],
-        "summary": "Returns a Patient derived from HL7/FHIR",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Id of a Patient (HL7/FHIR)",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returned the Patient from HL7/FHIR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Jwt token authorization failed."
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        },
-        "security": [
-          {
-            "oauth2": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": [
-          "Patient"
-        ],
-        "summary": "Deletes the Patient with \"id\" from HL7/FHIR",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Id of a Patient (HL7/FHIR)",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Deleted Patient from HL7/FHIR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Jwt token authorization failed."
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        },
-        "security": [
-          {
-            "oauth2": []
-          }
-        ]
-      },
-      "put": {
-        "tags": [
-          "Patient"
-        ],
-        "summary": "Updates the Patient with \"id\" at HL7/FHIR",
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "description": "Id of a Patient (HL7/FHIR)",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Updated the Patient in HL7/FHIR",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessObjectResponse`1"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Jwt token authorization failed."
-          },
-          "403": {
-            "description": "Forbidden"
-          }
-        },
-        "security": [
-          {
-            "oauth2": []
-          }
-        ]
-      }
-    },
-    "/api/User/{username}": {
-      "get": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Searches and returns an IdentityUser by its \"username\". If not found, returns NotFound",
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "description": "User name of the IdentityUser",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Returned the IdentityUser with the supplied user name..",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/IdentityUserSuccessObjectResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Jwt token authorization failed."
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "The IdentityUser with the supplied user name was not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oauth2": []
-          }
-        ]
-      },
-      "delete": {
-        "tags": [
-          "User"
-        ],
-        "summary": "Deletes an IdentityUser. If not found, returns NotFound",
-        "parameters": [
-          {
-            "name": "username",
-            "in": "path",
-            "description": "User name of the IdentityUser",
-            "required": true,
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Deleted the IdentityUser with the supplied user name.",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
-                }
-              }
-            }
-          },
-          "401": {
-            "description": "Jwt token authorization failed."
-          },
-          "403": {
-            "description": "Forbidden"
-          },
-          "404": {
-            "description": "The IdentityUser with the supplied user name was not found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oauth2": []
-          }
-        ]
-      }
     }
   },
   "components": {
     "schemas": {
-      "AppUser": {
-        "type": "object",
-        "properties": {
-          "userName": {
-            "type": "string",
-            "description": "UserName property holds the username of the user.",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "description": "Password property holds the password of the user.",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "description": "Email property holds the email of the user.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "AppUser class contains the properties of a user such as username, password, and email.\r\nIt also includes a method 'From' that converts an 'IdentityUser' object to an 'AppUser' object."
-      },
       "ErrorResponse": {
         "type": "object",
         "properties": {
@@ -1007,97 +618,6 @@
         "additionalProperties": false,
         "description": "This class represents an error response model, it inherits from the BaseResponseModel class and it's used to create\r\nan error response with a status code, an instance, a title, and details about the error."
       },
-      "IdentityUser": {
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "nullable": true
-          },
-          "userName": {
-            "type": "string",
-            "nullable": true
-          },
-          "normalizedUserName": {
-            "type": "string",
-            "nullable": true
-          },
-          "email": {
-            "type": "string",
-            "nullable": true
-          },
-          "normalizedEmail": {
-            "type": "string",
-            "nullable": true
-          },
-          "emailConfirmed": {
-            "type": "boolean"
-          },
-          "passwordHash": {
-            "type": "string",
-            "nullable": true
-          },
-          "securityStamp": {
-            "type": "string",
-            "nullable": true
-          },
-          "concurrencyStamp": {
-            "type": "string",
-            "nullable": true
-          },
-          "phoneNumber": {
-            "type": "string",
-            "nullable": true
-          },
-          "phoneNumberConfirmed": {
-            "type": "boolean"
-          },
-          "twoFactorEnabled": {
-            "type": "boolean"
-          },
-          "lockoutEnd": {
-            "type": "string",
-            "format": "date-time",
-            "nullable": true
-          },
-          "lockoutEnabled": {
-            "type": "boolean"
-          },
-          "accessFailedCount": {
-            "type": "integer",
-            "format": "int32"
-          }
-        },
-        "additionalProperties": false
-      },
-      "IdentityUserSuccessObjectResponse": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "description": "The status property of the response.",
-            "format": "int32",
-            "readOnly": true
-          },
-          "title": {
-            "type": "string",
-            "description": "The title property of the response.",
-            "nullable": true,
-            "readOnly": true
-          },
-          "responseCode": {
-            "type": "integer",
-            "description": "The numeric code property of the response.",
-            "format": "int32",
-            "readOnly": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/IdentityUser"
-          }
-        },
-        "additionalProperties": false,
-        "description": "This class represents a success response model with an object, it inherits from the SuccessResponse class and it's\r\nused to create a success response with an object as a result."
-      },
       "JsonNode": {
         "type": "object",
         "properties": {
@@ -1121,51 +641,6 @@
           }
         },
         "additionalProperties": false
-      },
-      "LoginModel": {
-        "type": "object",
-        "properties": {
-          "username": {
-            "type": "string",
-            "description": "The user's username used for login.",
-            "nullable": true
-          },
-          "password": {
-            "type": "string",
-            "description": "The user's password used for login.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "This class represents the model for user login credentials."
-      },
-      "SuccessObjectResponse`1": {
-        "type": "object",
-        "properties": {
-          "status": {
-            "type": "integer",
-            "description": "The status property of the response.",
-            "format": "int32",
-            "readOnly": true
-          },
-          "title": {
-            "type": "string",
-            "description": "The title property of the response.",
-            "nullable": true,
-            "readOnly": true
-          },
-          "responseCode": {
-            "type": "integer",
-            "description": "The numeric code property of the response.",
-            "format": "int32",
-            "readOnly": true
-          },
-          "data": {
-            "$ref": "#/components/schemas/T"
-          }
-        },
-        "additionalProperties": false,
-        "description": "This class represents a success response model with an object, it inherits from the SuccessResponse class and it's\r\nused to create a success response with an object as a result."
       },
       "SuccessResponse": {
         "type": "object",
@@ -1191,10 +666,6 @@
         },
         "additionalProperties": false,
         "description": "This class represents a success response model, it inherits from the BaseResponseModel and it's used to create a\r\nsuccess response."
-      },
-      "T": {
-        "type": "object",
-        "additionalProperties": false
       },
       "UploadFileModel": {
         "type": "object",

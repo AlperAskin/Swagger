@@ -39,7 +39,7 @@
         "tags": [
           "Claimer"
         ],
-        "summary": "Creates CoverageEligibilityResponse resource for Request.",
+        "summary": "Creates CoverageEligibilityResponse resource for CoverageEligibilityRequestResource.",
         "description": "This endpoint SendsRequest relative insurance endpoint and creates Fhir CoverageEligibilityResponse Resource.",
         "parameters": [
           {
@@ -83,71 +83,38 @@
         }
       }
     },
-    "/api/EArchiveInvoice/CreateEArchiveInvoice": {
-      "get": {
-        "tags": [
-          "EArchiveInvoice"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "Created",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/EArchiveInvoice/SendEArchiveInvoice": {
+    "/api/EArchiveInvoice/SendEArchiveInvoice/{invoiceId}": {
       "post": {
         "tags": [
           "EArchiveInvoice"
         ],
         "summary": "Sends an e-Archive invoice by compressing the provided XML invoice file and submitting it to the e-Archive system.",
         "description": "This endpoint accepts a SendEArchiveInvoice object which contains the path to the XML invoice file. The invoice file is then compressed, and the resulting e-Archive invoice is submitted to the e-Archive system. If the process is successful, a confirmation is returned.",
-        "requestBody": {
-          "description": "An object containing the path to the XML invoice file to be sent as an e-Archive invoice",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendEArchiveInvoice"
-              }
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "counterId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
             }
           }
-        },
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -182,14 +149,14 @@
         }
       }
     },
-    "/api/EInvoice/DenemeCreateV3": {
-      "post": {
+    "/api/EArchiveInvoice/GetEArchiveStatus": {
+      "get": {
         "tags": [
-          "EInvoice"
+          "EArchiveInvoice"
         ],
         "parameters": [
           {
-            "name": "id",
+            "name": "invoiceId",
             "in": "query",
             "schema": {
               "type": "string"
@@ -203,24 +170,109 @@
         }
       }
     },
-    "/api/EInvoice/SendInvoice": {
+    "/api/EInvoice/GetTaxPayerStatus/{vkn}": {
+      "get": {
+        "tags": [
+          "EInvoice"
+        ],
+        "summary": "Retrieves the tax payer status for a given VAT Identification Number (VKN).",
+        "parameters": [
+          {
+            "name": "vkn",
+            "in": "path",
+            "description": "The VAT Identification Number of the taxpayer.",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/EInvoice/CreateInvoice/{invoiceId}": {
+      "post": {
+        "tags": [
+          "EInvoice"
+        ],
+        "summary": "Creates an invoice with the given invoice ID.",
+        "description": "This method is responsible for creating an invoice based on the provided invoiceId.\r\nIt uses various services and libraries to generate an HTML representation of the invoice,\r\nconvert it to PDF, upload both HTML and PDF versions to a storage system,\r\nand update the invoice resource with a shared link to the PDF.",
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "description": "",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/EInvoice/CreateEArchiveInvoice/{invoiceId}": {
+      "post": {
+        "tags": [
+          "EInvoice"
+        ],
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
+          }
+        }
+      }
+    },
+    "/api/EInvoice/SendInvoice/{invoiceId}": {
       "post": {
         "tags": [
           "EInvoice"
         ],
         "summary": "Sends an invoice to the specified receiver.",
         "description": "This API endpoint takes a SendInvoice object as input, which includes the invoice path, sender and receiver information.\r\nThe invoice XML file is compressed and sent to the receiver via the Izibiz service.",
-        "requestBody": {
-          "description": "An object containing the necessary information to send the invoice.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/SendInvoice"
-              }
+        "parameters": [
+          {
+            "name": "invoiceId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           },
-          "required": true
-        },
+          {
+            "name": "counterId",
+            "in": "query",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          },
+          {
+            "name": "userId",
+            "in": "query",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses": {
           "200": {
             "description": "Success",
@@ -255,102 +307,23 @@
         }
       }
     },
-    "/api/EInvoice/GetAndSetStatusInvoiceStatus": {
-      "post": {
+    "/api/EInvoice/GetInvoiceStatus": {
+      "get": {
         "tags": [
           "EInvoice"
         ],
-        "summary": "Retrieves the status of the specified invoice.",
-        "description": "This API endpoint takes an invoice ID as input and returns the current status of the invoice.",
         "parameters": [
           {
             "name": "invoiceId",
             "in": "query",
-            "description": "The unique identifier of the invoice to query.",
-            "schema": {
-              "type": "string"
-            }
-          },
-          {
-            "name": "fhirInvoiceId",
-            "in": "query",
-            "description": "The unique identifier of the FHIR invoice to update its status.",
             "schema": {
               "type": "string"
             }
           }
         ],
-        "responses": {
-          "204": {
-            "description": "No Content",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "Not Found",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
-          }
-        }
-      }
-    },
-    "/api/EInvoice/GetInvoice": {
-      "post": {
-        "tags": [
-          "EInvoice"
-        ],
-        "summary": "Retrieves incoming invoices within a specified date range.",
-        "description": "This API endpoint fetches incoming invoices within a given date range using the Izibiz service.\r\nThe date range and other search parameters are defined within the request object.",
-        "requestBody": {
-          "description": "An object containing the necessary information to get invoice.",
-          "content": {
-            "application/json": {
-              "schema": {
-                "$ref": "#/components/schemas/GetInvoice"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/SuccessResponse"
-                }
-              }
-            }
-          },
-          "500": {
-            "description": "Server Error",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ErrorResponse"
-                }
-              }
-            }
+            "description": "Success"
           }
         }
       }
@@ -402,27 +375,6 @@
                 }
               }
             }
-          }
-        }
-      }
-    },
-    "/api/EInvoice/CheckUser": {
-      "get": {
-        "tags": [
-          "EInvoice"
-        ],
-        "parameters": [
-          {
-            "name": "VKN_TCKN",
-            "in": "query",
-            "schema": {
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success"
           }
         }
       }
@@ -870,6 +822,68 @@
         }
       }
     },
+    "/api/File/AddFileReturnShared": {
+      "put": {
+        "tags": [
+          "File"
+        ],
+        "summary": "Uploads a new file to the specified S3 bucket, returns shared link uploaded file.",
+        "description": "This endpoint allows for the upload of a new file to the specified S3 bucket. \r\nThe file to upload is provided in the request body as an instance of the UploadFileModel class. \r\nAdditionally, metadata can be provided as a header parameter with key \"meta\".",
+        "parameters": [
+          {
+            "name": "meta",
+            "in": "header",
+            "description": "This parameter is used to additional metadata Example values;\r\nContent-Writer,\r\nProject-Name,\r\nOTHER",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The file to upload.",
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadFileModel"
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadFileModel"
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UploadFileModel"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SuccessResponse"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "Not Found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ErrorResponse"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
     "/api/File/GetFile/{bucketName}/{key}": {
       "get": {
         "tags": [
@@ -977,7 +991,7 @@
         "tags": [
           "File"
         ],
-        "summary": "Retrieves a list of objects in the specified Amazon S3 bucket with the specified prefix.",
+        "summary": "Retrieves a list of objects in the specified MinIO S3 bucket with the specified prefix.",
         "description": "This endpoint retrieves a list of objects from an Amazon S3 bucket that match the specified prefix. The prefix parameter is used to filter the objects to retrieve.",
         "parameters": [
           {
@@ -1101,6 +1115,36 @@
                 }
               }
             }
+          }
+        }
+      }
+    },
+    "/api/File/GetVersionsForObject": {
+      "get": {
+        "tags": [
+          "File"
+        ],
+        "parameters": [
+          {
+            "name": "bucket",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "key",
+            "in": "query",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success"
           }
         }
       }
@@ -1732,7 +1776,7 @@
             "format": "int32",
             "readOnly": true
           },
-          "type": {
+          "errorType": {
             "type": "string",
             "description": "The property that holds the type of the error.",
             "nullable": true
@@ -1745,7 +1789,7 @@
           "traceId": {
             "type": "string",
             "description": "The property that holds the trace id of the error.",
-            "format": "uuid"
+            "nullable": true
           },
           "instance": {
             "type": "string",
@@ -1975,23 +2019,6 @@
         ],
         "type": "integer",
         "format": "int32"
-      },
-      "GetInvoice": {
-        "type": "object",
-        "properties": {
-          "startDate": {
-            "type": "string",
-            "description": "The start date of the date range for invoice retrieval.",
-            "format": "date-time"
-          },
-          "endDate": {
-            "type": "string",
-            "description": "The end date of the date range for invoice retrieval.",
-            "format": "date-time"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents a date range for fetching invoices."
       },
       "ICustomAttributeProvider": {
         "type": "object",
@@ -2718,18 +2745,6 @@
         "type": "integer",
         "format": "int32"
       },
-      "SendEArchiveInvoice": {
-        "type": "object",
-        "properties": {
-          "invoicePath": {
-            "type": "string",
-            "description": "Gets or sets the file path of the invoice XML to be sent.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents the required information for sending an e-Archive Invoice."
-      },
       "SendEsmm": {
         "type": "object",
         "properties": {
@@ -2741,38 +2756,6 @@
         },
         "additionalProperties": false,
         "description": "Represents the request model for sending an e-smm."
-      },
-      "SendInvoice": {
-        "type": "object",
-        "properties": {
-          "invoicePath": {
-            "type": "string",
-            "description": "The file path of the invoice XML document to be sent.",
-            "nullable": true
-          },
-          "senderVKN": {
-            "type": "string",
-            "description": "The sender's VKN (Vergi Kimlik Numarası - Tax Identification Number) used for authentication.",
-            "nullable": true
-          },
-          "senderAlias": {
-            "type": "string",
-            "description": "The sender's alias used for e-Invoice transactions.",
-            "nullable": true
-          },
-          "receiverVKN": {
-            "type": "string",
-            "description": "The receiver's VKN (Vergi Kimlik Numarası - Tax Identification Number) used for authentication.",
-            "nullable": true
-          },
-          "receiverAlias": {
-            "type": "string",
-            "description": "The receiver's alias used for e-Invoice transactions.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Represents the information required to send an invoice."
       },
       "SendInvoiceResponseModel": {
         "type": "object",
